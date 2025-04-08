@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
+  const handleBookCall = () => {
+    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+  };
+
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-br from-white to-accent pt-20">
       <div className="absolute inset-0 overflow-hidden">
@@ -23,7 +27,7 @@ const HeroSection = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   className="bg-primary hover:bg-primary-dark text-white text-lg px-8 py-6 rounded-lg"
-                  onClick={() => document.getElementById('discovery')?.scrollIntoView({behavior: 'smooth'})}
+                  onClick={handleBookCall}
                 >
                   Book a Discovery Call
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -31,7 +35,7 @@ const HeroSection = () => {
                 <Button 
                   variant="outline" 
                   className="border-primary text-primary hover:bg-primary/5 text-lg px-8 py-6 rounded-lg"
-                  onClick={() => document.getElementById('services')?.scrollIntoView({behavior: 'smooth'})}
+                  onClick={() => window.location.href = '#/services'}
                 >
                   Explore Our Services
                 </Button>

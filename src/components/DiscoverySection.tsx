@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const DiscoverySection = () => {
+  const handleBookCall = () => {
+    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+  };
+
   return (
     <section id="discovery" className="section-spacing bg-primary text-white">
       <div className="container mx-auto px-4 md:px-6">
@@ -71,7 +75,7 @@ const DiscoverySection = () => {
                 </div>
                 <Button 
                   className="bg-primary hover:bg-primary-dark text-white text-lg py-6"
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})}
+                  onClick={handleBookCall}
                 >
                   Schedule Your Discovery Session
                 </Button>

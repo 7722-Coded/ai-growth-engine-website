@@ -4,14 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 
 const ContactSection = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
     business: "",
     message: ""
   });
@@ -35,7 +34,6 @@ const ContactSection = () => {
       setFormData({
         name: "",
         email: "",
-        phone: "",
         business: "",
         message: ""
       });
@@ -60,17 +58,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium mb-1">Email Us</h3>
-                  <p className="text-gray-600">hello@aigrowthpartners.com</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="mr-4 bg-primary/10 p-3 rounded-full">
-                  <Phone className="h-6 w-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-medium mb-1">Call Us</h3>
-                  <p className="text-gray-600">(555) 123-4567</p>
+                  <p className="text-gray-600">khushnaj@aigrowthpartners.in</p>
                 </div>
               </div>
             </div>
@@ -94,35 +82,20 @@ const ContactSection = () => {
                 />
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="Your email"
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Your phone number"
-                    className="w-full"
-                  />
-                </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                  Email Address
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Your email"
+                  className="w-full"
+                />
               </div>
               
               <div>
