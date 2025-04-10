@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactSection from "@/components/ContactSection";
+import RobotGuide from "@/components/RobotGuide";
 import { Sparkles, Bot, MessageSquare, Star } from "lucide-react";
 
 const Contact = () => {
@@ -28,6 +29,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-accent/30 relative overflow-hidden">
       <Navbar />
+      <RobotGuide />
       
       {/* Background animated elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

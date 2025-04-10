@@ -8,6 +8,7 @@ import BenefitsSection from "@/components/BenefitsSection";
 import DiscoverySection from "@/components/DiscoverySection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import RobotGuide from "@/components/RobotGuide";
 import { Sparkles, Star, Bot } from "lucide-react";
 
 const Index = () => {
@@ -77,6 +78,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden relative">
+      {/* Add Robot Guide */}
+      <RobotGuide />
+      
       {/* Animated background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         {/* Large gradient blobs */}

@@ -1,7 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import RobotGuide from "@/components/RobotGuide";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, User, Calendar, Search, Globe, BrainCircuit, Bot, ArrowRight, Sparkles, Star, Zap, CheckCircle } from "lucide-react";
@@ -129,6 +129,7 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-accent/30 relative overflow-hidden">
       <Navbar />
+      <RobotGuide />
       
       {/* Background animated elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

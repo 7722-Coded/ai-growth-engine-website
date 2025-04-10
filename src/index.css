@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -252,6 +251,44 @@
   }
 }
 
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes wave {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-20deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-20deg); }
+  80% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes wink {
+  0%, 48%, 52%, 100% { height: 2px; }
+  50% { height: 1px; }
+}
+
+@keyframes wink-delayed {
+  0%, 58%, 62%, 100% { height: 2px; }
+  60% { height: 1px; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes speak {
+  0%, 100% { width: 3px; }
+  50% { width: 5px; }
+}
+
 .animate-slide-down {
   animation: slide-down 0.3s ease forwards;
 }
@@ -305,6 +342,30 @@
 
 .animate-orbit {
   animation: rotate-orbit 15s linear infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite ease-in-out;
+}
+
+.animate-wave {
+  animation: wave 1.5s ease-in-out;
+}
+
+.animate-wink {
+  animation: wink 4s infinite;
+}
+
+.animate-wink-delayed {
+  animation: wink-delayed 4s infinite;
+}
+
+.animate-blink {
+  animation: blink 1.5s infinite;
+}
+
+.animate-speak {
+  animation: speak 0.5s infinite;
 }
 
 /* Card hover effects */
