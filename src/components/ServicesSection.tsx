@@ -1,6 +1,8 @@
 
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, User, Calendar, Search, Globe } from "lucide-react";
+import { useInView } from 'react-intersection-observer';
 
 const services = [
   {
@@ -31,11 +33,19 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
   return (
-    <section id="services" className="section-spacing bg-white">
+    <section id="services" className="section-spacing bg-white" ref={ref}>
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our AI Agent Services</h2>
+        <div className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 transform ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 relative">
+            <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">Our AI Agent Services</span>
+            <div className={`h-1 w-20 bg-primary mx-auto mt-4 transition-all duration-1000 delay-300 ${inView ? 'w-20 opacity-100' : 'w-0 opacity-0'}`}></div>
+          </h2>
           <p className="text-xl text-gray-600">
             We deploy custom-built AI agents that work as digital employees, handling specific tasks to make your business more efficient and responsive.
           </p>
@@ -43,11 +53,15 @@ const ServicesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div key={index} className="opacity-0 animate-slide-up" style={{animationDelay: `${0.1 * index}s`, animationFillMode: 'forwards'}}>
-              <Card className="h-full border-2 border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300">
+            <div 
+              key={index} 
+              className={`transition-all duration-700 transform ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`} 
+              style={{transitionDelay: `${index * 150}ms`}}
+            >
+              <Card className="h-full border-2 border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group">
                 <CardHeader>
-                  <div className="mb-4">{service.icon}</div>
-                  <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
+                  <div className="mb-4 transform transition-transform duration-500 group-hover:scale-110 group-hover:text-primary-light">{service.icon}</div>
+                  <CardTitle className="text-xl font-bold group-hover:text-primary transition-colors duration-300">{service.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-gray-600 text-base">
