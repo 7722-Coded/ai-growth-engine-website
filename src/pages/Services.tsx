@@ -128,8 +128,9 @@ const Services = () => {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-accent/30 relative overflow-hidden">
-      <Navbar />
       <RobotGuide />
+      
+      <Navbar />
       
       {/* Background animated elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

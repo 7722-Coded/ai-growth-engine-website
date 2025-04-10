@@ -78,7 +78,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen overflow-x-hidden relative">
-      {/* Add Robot Guide */}
+      {/* Robot Guide - placed higher in the DOM for better visibility */}
       <RobotGuide />
       
       {/* Animated background elements */}

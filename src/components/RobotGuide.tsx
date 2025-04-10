@@ -5,16 +5,15 @@ import { cn } from '@/lib/utils';
 const RobotGuide = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [isWaving, setIsWaving] = useState(false);
-  const [emotion, setEmotion] = useState<'normal' | 'happy' | 'excited'>('normal');
-  const [message, setMessage] = useState('');
-  const [isMessageVisible, setIsMessageVisible] = useState(false);
+  const [isWaving, setIsWaving] = useState(true);
+  const [emotion, setEmotion] = useState<'normal' | 'happy' | 'excited'>('happy');
+  const [message, setMessage] = useState('Hi there! Welcome to our site!');
+  const [isMessageVisible, setIsMessageVisible] = useState(true);
   const robotRef = useRef<HTMLDivElement>(null);
   const lastScrollPosition = useRef(0);
   const animationFrame = useRef<number | null>(null);
   const messageTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Messages based on scroll position percentage
   const messages = [
     { threshold: 0, text: "Hi there! I'm Robo. Welcome!" },
     { threshold: 0.1, text: "Scroll down to see our services!" },
@@ -24,8 +23,13 @@ const RobotGuide = () => {
     { threshold: 0.9, text: "Let's connect! Drop us a message!" }
   ];
 
-  // Handle scroll position and robot animation
   useEffect(() => {
+    setIsWaving(true);
+    setIsMessageVisible(true);
+    setTimeout(() => {
+      setIsWaving(false);
+    }, 2000);
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const maxScroll = document.body.scrollHeight - window.innerHeight;
@@ -33,7 +37,6 @@ const RobotGuide = () => {
       
       setScrollPosition(scrollPercentage);
       
-      // Set robot emotion based on scroll
       if (scrollPercentage > 0.7) {
         setEmotion('excited');
       } else if (scrollPercentage > 0.3) {
@@ -42,13 +45,11 @@ const RobotGuide = () => {
         setEmotion('normal');
       }
       
-      // Trigger wave animation occasionally
-      if (Math.random() > 0.995) {
+      if (Math.random() > 0.99) {
         setIsWaving(true);
         setTimeout(() => setIsWaving(false), 2000);
       }
       
-      // Update message based on scroll position
       const currentMessage = messages.reduce((acc, curr) => {
         return scrollPercentage >= curr.threshold ? curr : acc;
       }, messages[0]);
@@ -66,46 +67,37 @@ const RobotGuide = () => {
         }, 5000);
       }
       
-      // Direction of movement
       lastScrollPosition.current = currentScrollY;
     };
     
-    // Smooth animation function
     const animateRobot = () => {
       if (!robotRef.current) return;
       
-      // Get viewport dimensions
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       
-      // Calculate robot position based on scroll and some randomness for "dancing"
       const now = Date.now() / 1000;
-      const wiggle = Math.sin(now * 5) * 5; // Dancing effect
-      const sway = Math.sin(now * 2) * 20; // Side to side movement
+      const wiggle = Math.sin(now * 5) * 5;
+      const sway = Math.sin(now * 2) * 20;
       
-      // Calculate position
-      const xPos = 20 + sway + (viewportWidth > 768 ? 0 : -10); // Stay more to the left on desktop
-      const yPos = 50 + wiggle + (scrollPosition * 70); // Move down as we scroll
+      const xPos = 10 + sway + (viewportWidth > 768 ? 0 : -5);
+      const yPos = 30 + wiggle + (scrollPosition * 50);
       
-      // Apply position - keep robot in the visible area
-      robotRef.current.style.left = `${Math.max(5, Math.min(xPos, 25))}%`;
-      robotRef.current.style.top = `${Math.max(10, Math.min(yPos, 85))}%`;
+      robotRef.current.style.left = `${Math.max(5, Math.min(xPos, 15))}%`;
+      robotRef.current.style.top = `${Math.max(10, Math.min(yPos, 80))}%`;
       
       animationFrame.current = requestAnimationFrame(animateRobot);
     };
     
-    // Start animation
     animateRobot();
     
-    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call to set position
+    handleScroll();
     
-    // Show initial greeting
     setIsMessageVisible(true);
     messageTimeoutRef.current = setTimeout(() => {
       setIsMessageVisible(false);
-    }, 5000);
+    }, 7000);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -114,7 +106,6 @@ const RobotGuide = () => {
     };
   }, [message]);
   
-  // Handle click on robot to show message
   const handleRobotClick = () => {
     setIsWaving(true);
     setIsMessageVisible(true);
@@ -129,20 +120,18 @@ const RobotGuide = () => {
     }, 5000);
   };
   
-  // Toggle robot visibility
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
   
   return (
     <>
-      {/* Toggle button */}
       <button 
         onClick={toggleVisibility}
-        className="fixed z-50 bottom-6 right-6 bg-primary/90 text-white p-2 rounded-full shadow-lg hover:bg-primary transition-all duration-300"
+        className="fixed z-50 bottom-6 right-6 bg-primary/90 text-white p-3 rounded-full shadow-lg hover:bg-primary transition-all duration-300"
         aria-label={isVisible ? "Hide robot guide" : "Show robot guide"}
       >
-        {isVisible ? <HelpCircle size={20} /> : <Bot size={20} />}
+        {isVisible ? <HelpCircle size={24} /> : <Bot size={24} />}
       </button>
       
       {isVisible && (
@@ -151,15 +140,11 @@ const RobotGuide = () => {
           onClick={handleRobotClick}
           className={cn(
             "fixed z-40 transition-all duration-300 cursor-pointer",
-            "animate-bounce-gentle"
+            "animate-bounce-gentle scale-125"
           )}
-          style={{ transform: `scale(${window.innerWidth > 768 ? 1 : 0.8})` }}
         >
-          {/* Robot body */}
           <div className="relative">
-            {/* Robot head */}
             <div className="relative bg-gradient-to-b from-primary-light to-primary w-16 h-14 rounded-t-full flex items-center justify-center shadow-lg group-hover:from-primary-dark">
-              {/* Robot face */}
               <div className="absolute top-3 left-0 w-full flex justify-center items-center">
                 {emotion === 'excited' ? (
                   <div className="flex space-x-1">
@@ -173,7 +158,6 @@ const RobotGuide = () => {
                     />
                   </div>
                 ) : (
-                  // Eyes
                   <div className="flex space-x-3">
                     <div className={`w-2 h-2 rounded-full bg-white ${emotion === 'happy' ? 'animate-wink' : ''}`}></div>
                     <div className={`w-2 h-2 rounded-full bg-white ${emotion === 'happy' ? 'animate-wink-delayed' : ''}`}></div>
@@ -181,7 +165,6 @@ const RobotGuide = () => {
                 )}
               </div>
               
-              {/* Mouth */}
               <div className="absolute top-7 left-0 w-full flex justify-center">
                 {emotion === 'excited' ? (
                   <div className="w-4 h-2 bg-white rounded-full animate-pulse"></div>
@@ -192,23 +175,19 @@ const RobotGuide = () => {
                 )}
               </div>
               
-              {/* Antenna */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="w-1 h-3 bg-primary-dark rounded-full"></div>
                 <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-primary-light rounded-full animate-pulse"></div>
               </div>
             </div>
             
-            {/* Robot body */}
             <div className="bg-primary-dark w-14 h-10 mx-auto rounded-b-lg relative flex items-center justify-center">
-              {/* Robot heart/power indicator */}
               <Heart 
                 className={`text-red-400 animate-pulse absolute top-1 ${emotion === 'excited' ? 'animate-ping' : ''}`} 
                 size={12}
                 fill={emotion !== 'normal' ? 'rgba(248, 113, 113, 0.8)' : 'none'}
               />
               
-              {/* Robot arms */}
               <div 
                 className={cn(
                   "absolute -left-4 top-0 w-4 h-1 bg-primary-dark rounded-full origin-right",
@@ -217,28 +196,25 @@ const RobotGuide = () => {
               ></div>
               <div className="absolute -right-4 top-0 w-4 h-1 bg-primary-dark rounded-full"></div>
               
-              {/* Robot buttons */}
               <div className="flex space-x-2 absolute bottom-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary-light animate-pulse"></div>
                 <div className="w-1.5 h-1.5 rounded-full bg-primary-light animate-pulse" style={{animationDelay: '0.5s'}}></div>
               </div>
             </div>
             
-            {/* Robot legs */}
             <div className="flex justify-center space-x-2">
               <div className="w-2 h-3 bg-primary-dark rounded-b-md"></div>
               <div className="w-2 h-3 bg-primary-dark rounded-b-md"></div>
             </div>
             
-            {/* Speech bubble */}
             <div 
               className={cn(
-                "absolute -right-2 -top-12 bg-white px-3 py-2 rounded-lg shadow-md min-w-[120px] max-w-[180px] transition-opacity duration-300",
-                isMessageVisible ? "opacity-100" : "opacity-0"
+                "absolute -right-4 -top-16 bg-white px-4 py-3 rounded-lg shadow-lg min-w-[150px] max-w-[200px] transition-opacity duration-300",
+                isMessageVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
               )}
             >
-              <div className="text-xs text-gray-800">{message}</div>
-              <div className="absolute bottom-0 right-4 transform translate-y-2 rotate-45 w-3 h-3 bg-white"></div>
+              <div className="text-xs font-medium text-gray-800">{message}</div>
+              <div className="absolute bottom-0 right-4 transform translate-y-2 rotate-45 w-4 h-4 bg-white"></div>
             </div>
           </div>
         </div>
