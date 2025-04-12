@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -13,6 +13,8 @@ import { Sparkles, Star, Bot, Code, Zap, BrainCircuit, BarChart, Database } from
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const animationsEnabled = useRef(window.innerWidth >= 768);
   
   useEffect(() => {
     // Show futuristic loading animation
@@ -28,43 +30,52 @@ const Index = () => {
       document.body.classList.add('fade-entered');
     }, 500);
 
-    // Create background particles
-    createParticles();
+    // Only initialize heavy background effects when not on mobile
+    if (animationsEnabled.current) {
+      // Throttle particle creation for better performance
+      requestAnimationFrame(() => {
+        createParticles(15); // Reduced number of particles
+        createCosmicStars(30); // Reduced number of stars
+        createDigitalGrid();
+      });
+    }
     
-    // Create cosmic stars
-    createCosmicStars();
+    // Add scroll listener to disable some animations on scroll
+    const handleScroll = () => {
+      if (!hasScrolled && window.scrollY > 100) {
+        setHasScrolled(true);
+      }
+    };
     
-    // Create digital grid lines
-    createDigitalGrid();
+    window.addEventListener('scroll', handleScroll);
 
     return () => {
       document.body.classList.remove('fade-entered');
       document.body.classList.add('fade-exit');
+      window.removeEventListener('scroll', handleScroll);
       
-      // Clean up particles
+      // Clean up particles and effects
       const particles = document.querySelectorAll('.particle');
       particles.forEach(particle => particle.remove());
       
-      // Clean up cosmic stars
       const stars = document.querySelectorAll('.cosmic-star');
       stars.forEach(star => star.remove());
       
-      // Clean up grid lines
       const gridLines = document.querySelectorAll('.grid-line');
       gridLines.forEach(line => line.remove());
     };
-  }, []);
+  }, [hasScrolled]);
 
-  const createParticles = () => {
-    // Only run on non-mobile devices
-    if (window.innerWidth < 768) return;
+  const createParticles = (count) => {
+    // Skip on mobile devices
+    if (!animationsEnabled.current) return;
     
     const particleContainer = document.createElement('div');
     particleContainer.className = 'fixed inset-0 pointer-events-none z-0';
     document.body.appendChild(particleContainer);
     
-    // Create multiple particles
-    for (let i = 0; i < 30; i++) {
+    // Create reduced number of particles with hardware-accelerated properties
+    for (let i = 0; i < count; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
       
@@ -73,28 +84,29 @@ const Index = () => {
       const posY = Math.random() * 100;
       
       // Random size (small)
-      const size = Math.random() * 8 + 2;
+      const size = Math.random() * 6 + 2;
       
       // Random opacity and color
       const opacity = Math.random() * 0.15 + 0.1;
       const colors = ['#6E59A5', '#9b87f5', '#E5DEFF', '#4A3D70'];
       const color = colors[Math.floor(Math.random() * colors.length)];
       
-      // Set styles
+      // Set styles with transform instead of position where possible
       particle.style.left = `${posX}%`;
       particle.style.top = `${posY}%`;
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
       particle.style.backgroundColor = color;
       particle.style.opacity = `${opacity}`;
+      particle.style.willChange = 'transform'; // Performance optimization
       
-      // Set animation 
-      const duration = Math.random() * 20 + 10;
+      // Set animation with lower duration
+      const duration = Math.random() * 15 + 10;
       const delay = Math.random() * 5;
       particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
       
-      // Add holographic effect to some particles
-      if (Math.random() > 0.7) {
+      // Add holographic effect to fewer particles
+      if (Math.random() > 0.8) {
         particle.classList.add('animate-holographic');
       }
       
@@ -103,16 +115,16 @@ const Index = () => {
     }
   };
   
-  const createCosmicStars = () => {
-    // Only run on non-mobile devices
-    if (window.innerWidth < 768) return;
+  const createCosmicStars = (count) => {
+    // Skip on mobile devices
+    if (!animationsEnabled.current) return;
     
     const starsContainer = document.createElement('div');
     starsContainer.className = 'fixed inset-0 pointer-events-none z-0';
     document.body.appendChild(starsContainer);
     
-    // Create multiple stars
-    for (let i = 0; i < 50; i++) {
+    // Create reduced number of stars
+    for (let i = 0; i < count; i++) {
       const star = document.createElement('div');
       star.className = 'cosmic-star';
       
@@ -136,8 +148,9 @@ const Index = () => {
       star.style.borderRadius = '50%';
       star.style.opacity = `${opacity}`;
       star.style.boxShadow = '0 0 3px rgba(255, 255, 255, 0.5)';
+      star.style.willChange = 'opacity'; // Performance optimization
       
-      // Set animation
+      // Set animation with variable duration for staggered effect
       const duration = Math.random() * 3 + 1;
       star.style.animation = `blink ${duration}s infinite`;
       
@@ -147,19 +160,19 @@ const Index = () => {
   };
   
   const createDigitalGrid = () => {
-    // Only run on non-mobile devices
-    if (window.innerWidth < 768) return;
+    // Skip on mobile devices
+    if (!animationsEnabled.current) return;
     
     const gridContainer = document.createElement('div');
     gridContainer.className = 'fixed inset-0 pointer-events-none z-0';
     document.body.appendChild(gridContainer);
     
-    // Create horizontal lines
-    for (let i = 0; i < 20; i++) {
+    // Create fewer horizontal lines
+    for (let i = 0; i < 10; i++) {
       const line = document.createElement('div');
       line.className = 'grid-line';
       
-      const posY = i * 5;
+      const posY = i * 10;
       
       // Set styles
       line.style.position = 'absolute';
@@ -167,18 +180,18 @@ const Index = () => {
       line.style.right = '0';
       line.style.top = `${posY}%`;
       line.style.height = '1px';
-      line.style.backgroundColor = 'rgba(155, 135, 245, 0.05)';
+      line.style.backgroundColor = 'rgba(155, 135, 245, 0.03)';
       
       // Append to container
       gridContainer.appendChild(line);
     }
     
-    // Create vertical lines
-    for (let i = 0; i < 20; i++) {
+    // Create fewer vertical lines
+    for (let i = 0; i < 10; i++) {
       const line = document.createElement('div');
       line.className = 'grid-line';
       
-      const posX = i * 5;
+      const posX = i * 10;
       
       // Set styles
       line.style.position = 'absolute';
@@ -186,7 +199,7 @@ const Index = () => {
       line.style.bottom = '0';
       line.style.left = `${posX}%`;
       line.style.width = '1px';
-      line.style.backgroundColor = 'rgba(155, 135, 245, 0.05)';
+      line.style.backgroundColor = 'rgba(155, 135, 245, 0.03)';
       
       // Append to container
       gridContainer.appendChild(line);
@@ -207,19 +220,19 @@ const Index = () => {
         </div>
       )}
       
-      {/* Robot Guide - placed higher in the DOM for better visibility */}
+      {/* Robot Guide */}
       <RobotGuide />
       
-      {/* Data streams in background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-10">
-        {Array.from({ length: 20 }).map((_, i) => (
+      {/* Data streams in background - fewer and optimized */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-5">
+        {Array.from({ length: hasScrolled ? 8 : 12 }).map((_, i) => (
           <div 
             key={`data-stream-${i}`} 
-            className="absolute bg-primary/30 w-[1px]"
+            className="absolute bg-primary/30 will-change-transform w-[1px]"
             style={{
               left: `${Math.random() * 100}%`,
               top: '-20%',
-              height: `${Math.random() * 40 + 20}%`,
+              height: `${Math.random() * 30 + 20}%`,
               opacity: Math.random() * 0.5 + 0.5,
               animationName: 'matrix-rain',
               animationDuration: `${Math.random() * 3 + 2}s`,
@@ -231,67 +244,30 @@ const Index = () => {
         ))}
       </div>
       
-      {/* Animated background elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        {/* Large gradient blobs */}
-        <div className="absolute -top-40 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse shape-blob"></div>
-        <div className="absolute top-1/3 -left-40 w-80 h-80 bg-primary-light/5 rounded-full blur-3xl animate-pulse shape-blob" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-pulse shape-blob" style={{animationDelay: '2s'}}></div>
-        
-        {/* Holographic icons */}
-        <div className="hidden md:block absolute top-40 left-10 animate-levitate">
-          <div className="p-4 backdrop-blur-md bg-white/10 rounded-lg border border-white/20 animate-holographic">
-            <Bot className="h-16 w-16 text-primary/50" />
-          </div>
+      {/* Optimized animated background elements - reduced number and opacity */}
+      {!hasScrolled && (
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          {/* Reduced number of gradient blobs with lower opacity */}
+          <div className="absolute -top-40 right-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl animate-pulse shape-blob" style={{animationDuration: '12s'}}></div>
+          <div className="absolute top-1/3 -left-40 w-80 h-80 bg-primary-light/3 rounded-full blur-3xl animate-pulse shape-blob" style={{animationDuration: '15s', animationDelay: '1s'}}></div>
+          
+          {/* Limited holographic icons */}
+          {animationsEnabled.current && (
+            <>
+              <div className="hidden md:block absolute top-40 left-10 animate-levitate" style={{animationDuration: '8s'}}>
+                <div className="p-4 backdrop-blur-md bg-white/5 rounded-lg border border-white/10 animate-holographic">
+                  <Bot className="h-16 w-16 text-primary/30" />
+                </div>
+              </div>
+              <div className="hidden md:block absolute bottom-1/3 right-10 animate-float-delayed" style={{animationDuration: '10s'}}>
+                <div className="p-3 backdrop-blur-md bg-white/5 rounded-lg border border-white/10">
+                  <Code className="h-14 w-14 text-primary-light/30 animate-neon-pulse" style={{animationDuration: '3s'}} />
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        <div className="hidden md:block absolute bottom-1/3 right-10 animate-float-delayed">
-          <div className="p-3 backdrop-blur-md bg-white/10 rounded-lg border border-white/20">
-            <Code className="h-14 w-14 text-primary-light/50 animate-neon-pulse" />
-          </div>
-        </div>
-        <div className="hidden md:block absolute bottom-60 left-1/3 animate-float-reverse">
-          <div className="p-2 backdrop-blur-md bg-white/10 rounded-lg border border-white/20">
-            <BrainCircuit className="h-12 w-12 text-primary/50" />
-          </div>
-        </div>
-        <div className="hidden md:block absolute top-1/4 right-1/4 animate-float">
-          <div className="p-2 backdrop-blur-md bg-white/10 rounded-lg border border-white/20">
-            <Database className="h-10 w-10 text-primary-light/50 animate-holographic" />
-          </div>
-        </div>
-        
-        {/* Orbiting elements with futuristic styling */}
-        <div className="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="w-96 h-96 border border-dashed border-primary/10 rounded-full animate-spin-slow" style={{ animationDuration: '60s' }}>
-            <div className="absolute -top-3 -left-3 w-6 h-6 bg-primary/20 rounded-full animate-pulse backdrop-blur-sm border border-primary/30"></div>
-            <div className="absolute -bottom-3 -right-3 w-6 h-6 bg-primary-light/20 rounded-full animate-pulse backdrop-blur-sm border border-primary-light/30"></div>
-            <div className="absolute top-1/2 -left-3 transform -translate-y-1/2 w-6 h-6 bg-accent/30 rounded-full animate-pulse backdrop-blur-sm border border-accent/40"></div>
-            <div className="absolute top-1/2 -right-3 transform -translate-y-1/2 w-6 h-6 bg-primary/20 rounded-full animate-pulse backdrop-blur-sm border border-primary/30"></div>
-          </div>
-        </div>
-        
-        {/* Digital particle system */}
-        <div className="absolute inset-0 pointer-events-none z-1">
-          {Array.from({ length: 15 }).map((_, i) => (
-            <div 
-              key={`digital-particle-${i}`} 
-              className="absolute rounded-full animate-float"
-              style={{
-                width: `${Math.random() * 6 + 2}px`,
-                height: `${Math.random() * 6 + 2}px`,
-                backgroundColor: `rgba(155, 135, 245, ${Math.random() * 0.3 + 0.1})`,
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animationDuration: `${Math.random() * 5 + 5}s`,
-                animationDelay: `${Math.random() * 2}s`,
-              }}
-            ></div>
-          ))}
-        </div>
-        
-        {/* Scan lines */}
-        <div className="absolute inset-0 bg-transparent animate-scan-line pointer-events-none z-10 opacity-10"></div>
-      </div>
+      )}
       
       <Navbar />
       <HeroSection />
@@ -301,6 +277,48 @@ const Index = () => {
       <DiscoverySection />
       <ContactSection />
       <Footer />
+      
+      {/* New quantum particle effect at lower half of page */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 h-[50vh] overflow-hidden">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div 
+              key={`quantum-particle-${i}`}
+              className="absolute rounded-full bg-primary-light/30 animate-quantum-float will-change-transform"
+              style={{
+                width: `${Math.random() * 8 + 3}px`,
+                height: `${Math.random() * 8 + 3}px`,
+                bottom: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                filter: `blur(${Math.random() * 2}px)`,
+                boxShadow: '0 0 8px rgba(155, 135, 245, 0.8)',
+                animationDuration: `${Math.random() * 15 + 10}s`,
+                animationDelay: `${Math.random() * 5}s`
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
+      
+      {/* New digital energy waves in lower sections */}
+      <div className="absolute bottom-0 left-0 right-0 h-[70vh] overflow-hidden pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-primary/5 to-transparent"></div>
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div 
+            key={`energy-wave-${i}`}
+            className="absolute bottom-0 left-0 right-0 h-[200px] animate-energy-wave will-change-transform"
+            style={{
+              borderRadius: '50% 50% 0 0',
+              border: '1px solid rgba(155, 135, 245, 0.1)',
+              animationDuration: `${15 + i * 5}s`,
+              animationDelay: `${i * 2}s`,
+              backgroundColor: 'rgba(155, 135, 245, 0.03)',
+              transform: 'scaleX(2)',
+              height: `${100 + i * 30}px`
+            }}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -128,7 +128,7 @@
   @apply py-16 md:py-24;
 }
 
-/* Custom animations */
+/* Performance optimized animations */
 @keyframes slide-down {
   0% {
     opacity: 0;
@@ -171,7 +171,7 @@
   }
 }
 
-/* Enhanced floating animations */
+/* Enhanced floating animations with improved performance */
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -309,7 +309,7 @@
   50% { width: 5px; }
 }
 
-/* New futuristic animations */
+/* Performance optimized futuristic animations */
 @keyframes glitch {
   0% {
     transform: translate(0);
@@ -432,6 +432,86 @@
   }
 }
 
+/* NEW ANIMATIONS FOR LOWER HALF OF WEBSITE */
+@keyframes quantum-float {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -15px);
+  }
+  50% {
+    transform: translate(-5px, -30px);
+  }
+  75% {
+    transform: translate(-15px, -10px);
+  }
+}
+
+@keyframes energy-wave {
+  0% {
+    transform: scaleX(2) translateY(0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scaleX(2.5) translateY(-30px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scaleX(2) translateY(0);
+    opacity: 0.1;
+  }
+}
+
+@keyframes card-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(155, 135, 245, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(155, 135, 245, 0.6);
+  }
+}
+
+@keyframes dna-spiral {
+  0% {
+    transform: translateY(0) rotateZ(0);
+  }
+  100% {
+    transform: translateY(-100px) rotateZ(360deg);
+  }
+}
+
+@keyframes laser-beam {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  80% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes digital-ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Animation classes */
 .animate-slide-down {
   animation: slide-down 0.3s ease forwards;
 }
@@ -451,32 +531,39 @@
 /* Enhanced animation classes */
 .animate-float {
   animation: float 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-delayed {
   animation: float-delayed 5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-float-reverse {
   animation: float-reverse 3.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-spin-slow {
   animation: spin-slow 12s linear infinite;
+  will-change: transform;
 }
 
 .animate-bounce-horizontal {
   animation: bounce-horizontal 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-pulse {
   animation: pulse 3s infinite;
+  will-change: transform, opacity;
 }
 
 .animate-shimmer {
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
+  will-change: background-position;
 }
 
 .animate-ripple {
@@ -485,10 +572,12 @@
 
 .animate-orbit {
   animation: rotate-orbit 15s linear infinite;
+  will-change: transform;
 }
 
 .animate-bounce-gentle {
   animation: bounce-gentle 2s infinite ease-in-out;
+  will-change: transform;
 }
 
 .animate-wave {
@@ -514,20 +603,24 @@
 /* Futuristic animation classes */
 .animate-glitch {
   animation: glitch 0.5s infinite;
+  will-change: transform;
 }
 
 .animate-holographic {
   animation: holographic 4s infinite;
+  will-change: filter;
 }
 
 .animate-data-flow {
   background: linear-gradient(90deg, rgba(155, 135, 245, 0.1) 0%, rgba(155, 135, 245, 0.2) 25%, rgba(155, 135, 245, 0.1) 50%, rgba(155, 135, 245, 0.2) 75%, rgba(155, 135, 245, 0.1) 100%);
   background-size: 200% 100%;
   animation: data-flow 5s linear infinite;
+  will-change: background-position;
 }
 
 .animate-neon-pulse {
   animation: neon-pulse 2s infinite;
+  will-change: filter;
 }
 
 .animate-scan-line {
@@ -544,6 +637,7 @@
   height: 10px;
   background: linear-gradient(to bottom, rgba(155, 135, 245, 0.5), transparent);
   animation: scan-line 2s linear infinite;
+  will-change: transform;
 }
 
 .animate-matrix-rain {
@@ -560,21 +654,56 @@
   background: linear-gradient(to bottom, transparent, rgba(155, 135, 245, 0.2));
   animation: matrix-rain 2s linear infinite;
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .animate-levitate {
   animation: levitate 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-hologram-rotate {
   animation: hologram-rotate 12s linear infinite;
   transform-style: preserve-3d;
+  will-change: transform, filter;
 }
 
 .animate-cosmic-background {
   background: radial-gradient(circle, rgba(155, 135, 245, 0.1) 0%, rgba(110, 89, 165, 0.2) 50%, rgba(155, 135, 245, 0.1) 100%);
   background-size: 200% 200%;
   animation: cosmic-background 20s ease infinite;
+  will-change: background-position, transform;
+}
+
+/* NEW ANIMATION CLASSES FOR LOWER SECTIONS */
+.animate-quantum-float {
+  animation: quantum-float 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-energy-wave {
+  animation: energy-wave 20s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-card-glow {
+  animation: card-glow 4s infinite;
+  will-change: box-shadow;
+}
+
+.animate-dna-spiral {
+  animation: dna-spiral 10s linear infinite;
+  will-change: transform;
+}
+
+.animate-digital-ripple {
+  animation: digital-ripple 3s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-laser-beam {
+  animation: laser-beam 2s ease-out infinite;
+  will-change: transform, opacity;
 }
 
 /* Card hover effects */
@@ -677,6 +806,7 @@
 .shape-blob {
   border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
   animation: morph 8s linear infinite;
+  will-change: border-radius;
 }
 
 @keyframes morph {
@@ -780,6 +910,7 @@
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
+  will-change: transform;
 }
 
 .cursor-outline {
@@ -792,4 +923,107 @@
   z-index: 9998;
   transform: translate(-50%, -50%);
   transition: width 0.2s ease, height 0.2s ease;
+  will-change: transform;
+}
+
+/* NEW STYLES FOR LOWER HALF SECTIONS */
+
+/* Neural node connections */
+.neural-network {
+  position: relative;
+}
+
+.neural-node {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(155, 135, 245, 0.7);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(155, 135, 245, 0.5);
+}
+
+.neural-connection {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(155, 135, 245, 0.1), rgba(155, 135, 245, 0.7), rgba(155, 135, 245, 0.1));
+  transform-origin: left center;
+}
+
+/* Hyperdrive effect */
+.hyperdrive-bg {
+  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 50%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hyperdrive-star {
+  position: absolute;
+  background-color: white;
+  width: 1px;
+  height: 1px;
+  box-shadow: 0 0 3px rgba(155, 135, 245, 0.8);
+}
+
+/* Quantum tunnel effect */
+.quantum-tunnel {
+  position: relative;
+  perspective: 1000px;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.quantum-ring {
+  position: absolute;
+  border: 1px solid rgba(155, 135, 245, 0.3);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Future tech cards */
+.future-tech-card {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.05),
+    0 0 10px rgba(155, 135, 245, 0.2),
+    inset 0 0 10px rgba(155, 135, 245, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.future-tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.1),
+    0 0 15px rgba(155, 135, 245, 0.4),
+    inset 0 0 20px rgba(155, 135, 245, 0.1);
+}
+
+.future-tech-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(155, 135, 245, 0.1) 0%, transparent 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.future-tech-card:hover::before {
+  transform: scale(1);
+  opacity: 1;
 }
