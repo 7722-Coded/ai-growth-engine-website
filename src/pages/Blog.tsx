@@ -110,7 +110,11 @@ const Blog = () => {
                   <p className="text-secondary/80 mb-4">
                     {post.excerpt}
                   </p>
-                  <Button variant="link" className="p-0 h-auto flex items-center text-primary hover:text-primary-dark">
+                  <Button 
+                    variant="link" 
+                    className="p-0 h-auto flex items-center text-primary hover:text-primary-dark"
+                    onClick={() => window.open("https://cal.com/aigrowthpartners", "_blank")}
+                  >
                     Read more <ArrowRight size={16} className="ml-1" />
                   </Button>
                 </CardContent>
