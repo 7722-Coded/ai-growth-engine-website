@@ -1,9 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Bot } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -37,6 +39,11 @@ const Navbar = () => {
     window.open("https://cal.com/aigrowthpartners", "_blank");
   };
 
+  // Check if the path is active
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5'
@@ -55,21 +62,21 @@ const Navbar = () => {
         <nav className="hidden md:flex items-center space-x-8">
           <Link 
             to="/" 
-            className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`} 
+            className={`${isActive('/') ? 'text-primary' : 'text-secondary'} hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`} 
             style={{transitionDelay: '200ms'}}
           >
             Home
           </Link>
           <Link 
             to="/services" 
-            className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+            className={`${isActive('/services') ? 'text-primary' : 'text-secondary'} hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
             style={{transitionDelay: '300ms'}}
           >
             Services
           </Link>
           <Link 
             to="/contact" 
-            className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+            className={`${isActive('/contact') ? 'text-primary' : 'text-secondary'} hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
             style={{transitionDelay: '400ms'}}
           >
             Contact
@@ -101,21 +108,21 @@ const Navbar = () => {
           <div className="flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="text-secondary hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 border-transparent hover:border-primary"
+              className={`${isActive('/') ? 'text-primary border-primary' : 'text-secondary border-transparent'} hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 hover:border-primary`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
               to="/services" 
-              className="text-secondary hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 border-transparent hover:border-primary"
+              className={`${isActive('/services') ? 'text-primary border-primary' : 'text-secondary border-transparent'} hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 hover:border-primary`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Services
             </Link>
             <Link 
               to="/contact" 
-              className="text-secondary hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 border-transparent hover:border-primary"
+              className={`${isActive('/contact') ? 'text-primary border-primary' : 'text-secondary border-transparent'} hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 hover:border-primary`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Contact
