@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -123,7 +124,7 @@ const Services = () => {
   }, []);
 
   const handleBookCall = () => {
-    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+    window.open("https://cal.com/aigrowthpartners", "_blank");
   };
   
   return (

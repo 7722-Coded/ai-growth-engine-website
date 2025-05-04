@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Bot, Code, MessageSquare, CheckCircle, Star, Sparkles, Database, Zap, BrainCircuit, Orbit, ArrowUpRight } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
@@ -53,7 +52,7 @@ const HeroSection = () => {
   }, []);
 
   const handleBookCall = () => {
-    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+    window.open("https://cal.com/aigrowthpartners", "_blank");
   };
 
   return (

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Bot } from "lucide-react";
@@ -35,7 +34,7 @@ const Navbar = () => {
   };
 
   const handleButtonClick = () => {
-    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+    window.open("https://cal.com/aigrowthpartners", "_blank");
   };
 
   return (
@@ -124,7 +123,7 @@ const Navbar = () => {
             <Button 
               className="bg-primary hover:bg-primary-dark text-white font-medium w-full overflow-hidden relative group"
               onClick={() => {
-                window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+                window.open("https://cal.com/aigrowthpartners", "_blank");
                 setMobileMenuOpen(false);
               }}
             >

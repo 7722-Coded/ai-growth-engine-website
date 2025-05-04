@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, User, Calendar, Search, Globe, Sparkles, ArrowRight, Star } from "lucide-react";
@@ -50,7 +49,7 @@ const ServicesSection = () => {
   });
   
   const handleBookCall = () => {
-    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+    window.open("https://cal.com/aigrowthpartners", "_blank");
   };
 
   return (

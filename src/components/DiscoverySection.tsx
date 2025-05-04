@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 
 const DiscoverySection = () => {
   const handleBookCall = () => {
-    window.open("https://calendly.com/khushnaj7722/30min", "_blank");
+    window.open("https://cal.com/aigrowthpartners", "_blank");
   };
 
   return (
