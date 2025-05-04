@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Bot } from "lucide-react";
@@ -52,29 +53,43 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-6">
           <Link 
             to="/" 
             className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`} 
-            style={{transitionDelay: '200ms'}}
+            style={{transitionDelay: '100ms'}}
           >
             Home
           </Link>
           <Link 
             to="/services" 
             className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
-            style={{transitionDelay: '300ms'}}
+            style={{transitionDelay: '200ms'}}
           >
             Services
           </Link>
           <Link 
-            to="/contact" 
+            to="/about" 
+            className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+            style={{transitionDelay: '300ms'}}
+          >
+            About
+          </Link>
+          <Link 
+            to="/blog" 
             className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
             style={{transitionDelay: '400ms'}}
           >
+            Blog
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`text-secondary hover:text-primary font-medium transition-all duration-500 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-primary after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}
+            style={{transitionDelay: '500ms'}}
+          >
             Contact
           </Link>
-          <div className={`transition-all duration-500 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`} style={{transitionDelay: '500ms'}}>
+          <div className={`transition-all duration-500 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`} style={{transitionDelay: '600ms'}}>
             <Button 
               className="bg-primary hover:bg-primary-dark text-white font-medium relative overflow-hidden group"
               onClick={handleButtonClick}
@@ -112,6 +127,20 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Services
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-secondary hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 border-transparent hover:border-primary"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link 
+              to="/blog" 
+              className="text-secondary hover:text-primary font-medium py-2 transition-colors pl-2 border-l-2 border-transparent hover:border-primary"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
             </Link>
             <Link 
               to="/contact" 
